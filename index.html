@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TaskFlow SaaS Dashboard Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell" id="app">
+    <section class="login-screen screen active" id="login">
+      <div class="login-art">
+        <div class="brand-mark">TF</div>
+        <h1>TaskFlow</h1>
+        <p>Projects, deadlines, revenue, and team momentum in one product-ready workspace.</p>
+        <div class="login-preview">
+          <div></div><div></div><div></div>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <form class="login-card" id="loginForm">
+        <div class="logo-row">
+          <div class="brand-mark small">TF</div>
+          <strong>TaskFlow</strong>
+        </div>
+        <h2>Sign in</h2>
+        <label>Email</label>
+        <input type="email" value="anushika@taskflow.com" aria-label="Email">
+        <label>Password</label>
+        <input type="password" value="taskflow" aria-label="Password">
+        <button class="primary-btn" type="submit">Sign In</button>
+        <a href="#">Forgot Password?</a>
+      </form>
+    </section>
+
+    <section class="product-screen screen" id="product">
+      <aside class="sidebar">
+        <div class="logo-row sidebar-logo">
+          <div class="brand-mark small">TF</div>
+          <strong>TaskFlow</strong>
+        </div>
+        <nav>
+          <button class="nav-item active" data-page="dashboard">Dashboard</button>
+          <button class="nav-item" data-page="projects">Projects</button>
+          <button class="nav-item" data-page="tasks">Tasks</button>
+          <button class="nav-item" data-page="team">Team</button>
+          <button class="nav-item" data-page="analytics">Reports</button>
+          <button class="nav-item" data-page="settings">Settings</button>
+        </nav>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div class="search">Search projects, tasks, or teammates</div>
+          <div class="topbar-actions">
+            <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">◐</button>
+            <button class="icon-btn" id="notificationToggle" aria-label="Notifications">●</button>
+            <div class="avatar">AS</div>
+          </div>
+          <div class="notification-popover" id="notifications">
+            <strong>Notifications</strong>
+            <p>Sarah uploaded the Q2 report.</p>
+            <p>CRM Portal is ready for review.</p>
+            <p>Billing invoice was paid.</p>
+          </div>
+        </header>
+
+        <section class="page active" id="dashboard">
+          <div class="page-heading">
+            <div>
+              <p>Overview</p>
+              <h2>Dashboard Home</h2>
+            </div>
+            <button class="primary-btn compact">+ New Project</button>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card"><p>Active Projects</p><strong>24</strong><span>+12% this month</span></article>
+            <article class="stat-card"><p>Tasks Completed</p><strong>1,284</strong><span>92% completion rate</span></article>
+            <article class="stat-card"><p>Team Members</p><strong>52</strong><span>8 squads active</span></article>
+            <article class="stat-card"><p>Revenue</p><strong>$18,450</strong><span>+18.4% growth</span></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel wide">
+              <div class="panel-header"><h3>Project Progress</h3><span>Completion %</span></div>
+              <div class="bar-chart">
+                <div style="--h:80%"><span>80%</span><b>Website</b></div>
+                <div style="--h:65%"><span>65%</span><b>Mobile</b></div>
+                <div style="--h:95%"><span>95%</span><b>CRM</b></div>
+                <div style="--h:72%"><span>72%</span><b>Brand</b></div>
+                <div style="--h:58%"><span>58%</span><b>Ops</b></div>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-header"><h3>Recent Activity</h3></div>
+              <ul class="activity-list">
+                <li><b>John</b> completed UI Design</li>
+                <li><b>Sarah</b> uploaded report</li>
+                <li><b>Client</b> approved prototype</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <div class="panel-header"><h3>Upcoming Deadlines</h3></div>
+              <ul class="deadline-list">
+                <li><span>Mobile App Design</span><b>Jun 15</b></li>
+                <li><span>Marketing Campaign</span><b>Jun 18</b></li>
+                <li><span>Dashboard Revamp</span><b>Jun 20</b></li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="projects">
+          <div class="page-heading"><div><p>Portfolio</p><h2>Projects</h2></div><button class="primary-btn compact">+ New Project</button></div>
+          <div class="filters"><button class="active">Active</button><button>Completed</button><button>Review</button></div>
+          <article class="panel">
+            <table>
+              <thead><tr><th>Project</th><th>Team</th><th>Status</th><th>Progress</th></tr></thead>
+              <tbody>
+                <tr><td>Website Redesign</td><td>5 Members</td><td><span class="pill active">Active</span></td><td><div class="progress"><span style="width:80%"></span></div>80%</td></tr>
+                <tr><td>Mobile App</td><td>7 Members</td><td><span class="pill active">Active</span></td><td><div class="progress"><span style="width:65%"></span></div>65%</td></tr>
+                <tr><td>CRM Portal</td><td>4 Members</td><td><span class="pill review">Review</span></td><td><div class="progress"><span style="width:95%"></span></div>95%</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </section>
+
+        <section class="page" id="tasks">
+          <div class="page-heading"><div><p>Execution</p><h2>Tasks</h2></div></div>
+          <div class="kanban">
+            <article class="panel"><h3>To Do</h3><p>Finalize dashboard copy</p><p>Prepare stakeholder notes</p></article>
+            <article class="panel"><h3>In Progress</h3><p>Analytics event mapping</p><p>Mobile app wireframes</p></article>
+            <article class="panel"><h3>Done</h3><p>UI Design</p><p>Prototype approval</p></article>
+          </div>
+        </section>
+
+        <section class="page" id="team">
+          <div class="page-heading"><div><p>People</p><h2>Team Management</h2></div></div>
+          <div class="team-grid">
+            <article class="member-card"><div class="photo emma">EW</div><h3>Emma Watson</h3><p>UI Designer</p><span>emma@taskflow.com</span><b>Performance 94</b></article>
+            <article class="member-card"><div class="photo alex">AK</div><h3>Alex Kim</h3><p>Developer</p><span>alex@taskflow.com</span><b>Performance 91</b></article>
+            <article class="member-card"><div class="photo sarah">SL</div><h3>Sarah Lee</h3><p>Product Manager</p><span>sarah@taskflow.com</span><b>Performance 97</b></article>
+          </div>
+        </section>
+
+        <section class="page" id="analytics">
+          <div class="page-heading"><div><p>Reports</p><h2>Analytics</h2></div></div>
+          <div class="analytics-grid">
+            <article class="panel wide"><div class="panel-header"><h3>Revenue Growth</h3></div><svg viewBox="0 0 600 220" class="line-chart"><polyline points="20,180 120,145 220,158 320,95 420,112 560,45"></polyline><path d="M20 180 L120 145 L220 158 L320 95 L420 112 L560 45 L560 220 L20 220 Z"></path></svg></article>
+            <article class="panel"><div class="panel-header"><h3>User Acquisition</h3></div><div class="mini-bars"><span style="height:44%"></span><span style="height:70%"></span><span style="height:52%"></span><span style="height:88%"></span><span style="height:76%"></span></div></article>
+            <article class="panel"><div class="panel-header"><h3>Subscription Plans</h3></div><div class="pie"></div><ul class="legend"><li>Basic 45%</li><li>Pro 35%</li><li>Enterprise 20%</li></ul></article>
+          </div>
+        </section>
+
+        <section class="page" id="settings">
+          <div class="page-heading"><div><p>Workspace</p><h2>Settings</h2></div></div>
+          <div class="settings-list">
+            <button>Profile Settings</button>
+            <button>Security</button>
+            <button>Notifications</button>
+            <button>Billing</button>
+            <button>Integrations</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

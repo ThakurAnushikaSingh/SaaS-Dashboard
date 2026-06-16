@@ -1,0 +1,4 @@
+Prototype created as a local interactive Figma-style HTML prototype.
+
+Open:
+index.html
