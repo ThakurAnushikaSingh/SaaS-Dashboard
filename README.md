@@ -1,6 +1,6 @@
-# TaskFlow SaaS Dashboard
+# TaskFlow SaaS Dashboard MVP
 
-A modern SaaS dashboard prototype for a project management product.
+A modern MVP-style SaaS dashboard prototype for a project management product.
 
 ## Features
 - Login screen
@@ -11,6 +11,12 @@ A modern SaaS dashboard prototype for a project management product.
 - Settings
 - Dark mode toggle
 - Clickable navigation and notifications
+- Global search feedback
+- Project filters
+- New project modal
+- Task state actions
+- Settings controls
+- Responsive mobile menu
 
 ## Tools Used
 - HTML

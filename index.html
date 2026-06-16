@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TaskFlow SaaS Dashboard Prototype</title>
+  <title>TaskFlow MVP Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -14,59 +14,80 @@
     <section class="login-screen screen active" id="login">
       <div class="login-art">
         <div class="brand-mark">TF</div>
+        <p class="eyebrow">MVP workspace</p>
         <h1>TaskFlow</h1>
-        <p>Projects, deadlines, revenue, and team momentum in one product-ready workspace.</p>
-        <div class="login-preview">
-          <div></div><div></div><div></div>
-          <span></span><span></span><span></span>
+        <p class="hero-copy">Run projects, ship work, and understand team momentum from one calm command center.</p>
+        <div class="hero-product" aria-hidden="true">
+          <div class="hero-strip"></div>
+          <div class="hero-tile strong"></div>
+          <div class="hero-tile"></div>
+          <div class="hero-tile small"></div>
+          <div class="hero-tile small warm"></div>
         </div>
       </div>
+
       <form class="login-card" id="loginForm">
         <div class="logo-row">
           <div class="brand-mark small">TF</div>
           <strong>TaskFlow</strong>
         </div>
-        <h2>Sign in</h2>
-        <label>Email</label>
-        <input type="email" value="anushika@taskflow.com" aria-label="Email">
-        <label>Password</label>
-        <input type="password" value="taskflow" aria-label="Password">
+        <h2>Welcome back</h2>
+        <p>Use the demo account to enter the MVP dashboard.</p>
+        <label for="email">Email</label>
+        <input id="email" type="email" value="anushika@taskflow.com" autocomplete="email">
+        <label for="password">Password</label>
+        <input id="password" type="password" value="taskflow" autocomplete="current-password">
         <button class="primary-btn" type="submit">Sign In</button>
-        <a href="#">Forgot Password?</a>
+        <a href="#" id="forgotPassword">Forgot Password?</a>
+        <span class="form-note" id="loginNote">Demo password is prefilled.</span>
       </form>
     </section>
 
     <section class="product-screen screen" id="product">
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
         <div class="logo-row sidebar-logo">
           <div class="brand-mark small">TF</div>
           <strong>TaskFlow</strong>
         </div>
-        <nav>
-          <button class="nav-item active" data-page="dashboard">Dashboard</button>
-          <button class="nav-item" data-page="projects">Projects</button>
-          <button class="nav-item" data-page="tasks">Tasks</button>
-          <button class="nav-item" data-page="team">Team</button>
-          <button class="nav-item" data-page="analytics">Reports</button>
-          <button class="nav-item" data-page="settings">Settings</button>
+        <nav aria-label="Main navigation">
+          <button class="nav-item active" data-page="dashboard"><span>01</span> Dashboard</button>
+          <button class="nav-item" data-page="projects"><span>02</span> Projects</button>
+          <button class="nav-item" data-page="tasks"><span>03</span> Tasks</button>
+          <button class="nav-item" data-page="team"><span>04</span> Team</button>
+          <button class="nav-item" data-page="analytics"><span>05</span> Analytics</button>
+          <button class="nav-item" data-page="settings"><span>06</span> Settings</button>
         </nav>
+        <div class="sidebar-card">
+          <b>Launch health</b>
+          <strong>86%</strong>
+          <p>3 blockers left before client handoff.</p>
+        </div>
       </aside>
 
       <div class="workspace">
         <header class="topbar">
-          <div class="search">Search projects, tasks, or teammates</div>
+          <button class="menu-btn" id="menuToggle" aria-label="Open menu">Menu</button>
+          <label class="search-wrap">
+            <span>Search</span>
+            <input id="globalSearch" type="search" placeholder="Projects, tasks, teammates">
+          </label>
           <div class="topbar-actions">
-            <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">◐</button>
-            <button class="icon-btn" id="notificationToggle" aria-label="Notifications">●</button>
+            <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">DM</button>
+            <button class="icon-btn notification-btn" id="notificationToggle" aria-label="Notifications"><span id="notificationDot"></span>NT</button>
             <div class="avatar">AS</div>
           </div>
           <div class="notification-popover" id="notifications">
-            <strong>Notifications</strong>
+            <div class="popover-head">
+              <strong>Notifications</strong>
+              <button id="markRead" type="button">Mark read</button>
+            </div>
             <p>Sarah uploaded the Q2 report.</p>
             <p>CRM Portal is ready for review.</p>
             <p>Billing invoice was paid.</p>
           </div>
         </header>
+
+        <div class="search-results" id="searchResults" aria-live="polite"></div>
 
         <section class="page active" id="dashboard">
           <div class="page-heading">
@@ -74,12 +95,12 @@
               <p>Overview</p>
               <h2>Dashboard Home</h2>
             </div>
-            <button class="primary-btn compact">+ New Project</button>
+            <button class="primary-btn compact new-project-btn">New Project</button>
           </div>
 
           <div class="stats-grid">
             <article class="stat-card"><p>Active Projects</p><strong>24</strong><span>+12% this month</span></article>
-            <article class="stat-card"><p>Tasks Completed</p><strong>1,284</strong><span>92% completion rate</span></article>
+            <article class="stat-card"><p>Tasks Completed</p><strong id="completedStat">1,284</strong><span>92% completion rate</span></article>
             <article class="stat-card"><p>Team Members</p><strong>52</strong><span>8 squads active</span></article>
             <article class="stat-card"><p>Revenue</p><strong>$18,450</strong><span>+18.4% growth</span></article>
           </div>
@@ -88,23 +109,23 @@
             <article class="panel wide">
               <div class="panel-header"><h3>Project Progress</h3><span>Completion %</span></div>
               <div class="bar-chart">
-                <div style="--h:80%"><span>80%</span><b>Website</b></div>
-                <div style="--h:65%"><span>65%</span><b>Mobile</b></div>
-                <div style="--h:95%"><span>95%</span><b>CRM</b></div>
-                <div style="--h:72%"><span>72%</span><b>Brand</b></div>
-                <div style="--h:58%"><span>58%</span><b>Ops</b></div>
+                <button style="--h:80%" data-page-target="projects"><span>80%</span><b>Website</b></button>
+                <button style="--h:65%" data-page-target="projects"><span>65%</span><b>Mobile</b></button>
+                <button style="--h:95%" data-page-target="projects"><span>95%</span><b>CRM</b></button>
+                <button style="--h:72%" data-page-target="projects"><span>72%</span><b>Brand</b></button>
+                <button style="--h:58%" data-page-target="projects"><span>58%</span><b>Ops</b></button>
               </div>
             </article>
             <article class="panel">
-              <div class="panel-header"><h3>Recent Activity</h3></div>
+              <div class="panel-header"><h3>Recent Activity</h3><button class="ghost-btn" data-page-target="tasks">View tasks</button></div>
               <ul class="activity-list">
-                <li><b>John</b> completed UI Design</li>
-                <li><b>Sarah</b> uploaded report</li>
-                <li><b>Client</b> approved prototype</li>
+                <li><b>John</b> completed UI Design <span>2h ago</span></li>
+                <li><b>Sarah</b> uploaded report <span>4h ago</span></li>
+                <li><b>Client</b> approved prototype <span>Yesterday</span></li>
               </ul>
             </article>
             <article class="panel">
-              <div class="panel-header"><h3>Upcoming Deadlines</h3></div>
+              <div class="panel-header"><h3>Upcoming Deadlines</h3><button class="ghost-btn" data-page-target="projects">Plan</button></div>
               <ul class="deadline-list">
                 <li><span>Mobile App Design</span><b>Jun 15</b></li>
                 <li><span>Marketing Campaign</span><b>Jun 18</b></li>
@@ -115,60 +136,101 @@
         </section>
 
         <section class="page" id="projects">
-          <div class="page-heading"><div><p>Portfolio</p><h2>Projects</h2></div><button class="primary-btn compact">+ New Project</button></div>
-          <div class="filters"><button class="active">Active</button><button>Completed</button><button>Review</button></div>
-          <article class="panel">
+          <div class="page-heading">
+            <div><p>Portfolio</p><h2>Projects</h2></div>
+            <button class="primary-btn compact new-project-btn">New Project</button>
+          </div>
+          <div class="toolbar">
+            <div class="filters" id="projectFilters">
+              <button class="active" data-filter="All">All</button>
+              <button data-filter="Active">Active</button>
+              <button data-filter="Completed">Completed</button>
+              <button data-filter="Review">Review</button>
+            </div>
+            <span id="projectCount">5 projects</span>
+          </div>
+          <article class="panel table-panel">
             <table>
-              <thead><tr><th>Project</th><th>Team</th><th>Status</th><th>Progress</th></tr></thead>
-              <tbody>
-                <tr><td>Website Redesign</td><td>5 Members</td><td><span class="pill active">Active</span></td><td><div class="progress"><span style="width:80%"></span></div>80%</td></tr>
-                <tr><td>Mobile App</td><td>7 Members</td><td><span class="pill active">Active</span></td><td><div class="progress"><span style="width:65%"></span></div>65%</td></tr>
-                <tr><td>CRM Portal</td><td>4 Members</td><td><span class="pill review">Review</span></td><td><div class="progress"><span style="width:95%"></span></div>95%</td></tr>
-              </tbody>
+              <thead><tr><th>Project</th><th>Team</th><th>Status</th><th>Owner</th><th>Progress</th><th>Action</th></tr></thead>
+              <tbody id="projectRows"></tbody>
             </table>
           </article>
         </section>
 
         <section class="page" id="tasks">
-          <div class="page-heading"><div><p>Execution</p><h2>Tasks</h2></div></div>
-          <div class="kanban">
-            <article class="panel"><h3>To Do</h3><p>Finalize dashboard copy</p><p>Prepare stakeholder notes</p></article>
-            <article class="panel"><h3>In Progress</h3><p>Analytics event mapping</p><p>Mobile app wireframes</p></article>
-            <article class="panel"><h3>Done</h3><p>UI Design</p><p>Prototype approval</p></article>
+          <div class="page-heading">
+            <div><p>Execution</p><h2>Tasks</h2></div>
+            <button class="secondary-btn" id="addTask">Add Task</button>
+          </div>
+          <div class="kanban" id="kanban">
+            <article class="panel task-column" data-status="todo"><div class="panel-header"><h3>To Do</h3><span>2</span></div></article>
+            <article class="panel task-column" data-status="doing"><div class="panel-header"><h3>In Progress</h3><span>2</span></div></article>
+            <article class="panel task-column" data-status="done"><div class="panel-header"><h3>Done</h3><span>2</span></div></article>
           </div>
         </section>
 
         <section class="page" id="team">
-          <div class="page-heading"><div><p>People</p><h2>Team Management</h2></div></div>
-          <div class="team-grid">
-            <article class="member-card"><div class="photo emma">EW</div><h3>Emma Watson</h3><p>UI Designer</p><span>emma@taskflow.com</span><b>Performance 94</b></article>
-            <article class="member-card"><div class="photo alex">AK</div><h3>Alex Kim</h3><p>Developer</p><span>alex@taskflow.com</span><b>Performance 91</b></article>
-            <article class="member-card"><div class="photo sarah">SL</div><h3>Sarah Lee</h3><p>Product Manager</p><span>sarah@taskflow.com</span><b>Performance 97</b></article>
+          <div class="page-heading">
+            <div><p>People</p><h2>Team Management</h2></div>
+            <button class="secondary-btn" id="sortTeam">Sort by score</button>
           </div>
+          <div class="team-grid" id="teamGrid"></div>
         </section>
 
         <section class="page" id="analytics">
-          <div class="page-heading"><div><p>Reports</p><h2>Analytics</h2></div></div>
+          <div class="page-heading">
+            <div><p>Reports</p><h2>Analytics</h2></div>
+            <div class="filters" id="periodFilters">
+              <button class="active" data-period="30">30D</button>
+              <button data-period="90">90D</button>
+              <button data-period="365">1Y</button>
+            </div>
+          </div>
           <div class="analytics-grid">
-            <article class="panel wide"><div class="panel-header"><h3>Revenue Growth</h3></div><svg viewBox="0 0 600 220" class="line-chart"><polyline points="20,180 120,145 220,158 320,95 420,112 560,45"></polyline><path d="M20 180 L120 145 L220 158 L320 95 L420 112 L560 45 L560 220 L20 220 Z"></path></svg></article>
-            <article class="panel"><div class="panel-header"><h3>User Acquisition</h3></div><div class="mini-bars"><span style="height:44%"></span><span style="height:70%"></span><span style="height:52%"></span><span style="height:88%"></span><span style="height:76%"></span></div></article>
-            <article class="panel"><div class="panel-header"><h3>Subscription Plans</h3></div><div class="pie"></div><ul class="legend"><li>Basic 45%</li><li>Pro 35%</li><li>Enterprise 20%</li></ul></article>
+            <article class="panel wide">
+              <div class="panel-header"><h3>Revenue Growth</h3><span id="revenueLabel">$18.4k MRR</span></div>
+              <svg viewBox="0 0 600 220" class="line-chart" aria-label="Revenue growth chart">
+                <polyline id="revenueLine" points="20,180 120,145 220,158 320,95 420,112 560,45"></polyline>
+                <path id="revenueArea" d="M20 180 L120 145 L220 158 L320 95 L420 112 L560 45 L560 220 L20 220 Z"></path>
+              </svg>
+            </article>
+            <article class="panel"><div class="panel-header"><h3>User Acquisition</h3><span>+21%</span></div><div class="mini-bars"><span style="height:44%"></span><span style="height:70%"></span><span style="height:52%"></span><span style="height:88%"></span><span style="height:76%"></span></div></article>
+            <article class="panel"><div class="panel-header"><h3>Subscription Plans</h3></div><div class="pie"></div><ul class="legend"><li><b></b>Basic 45%</li><li><b></b>Pro 35%</li><li><b></b>Enterprise 20%</li></ul></article>
           </div>
         </section>
 
         <section class="page" id="settings">
           <div class="page-heading"><div><p>Workspace</p><h2>Settings</h2></div></div>
-          <div class="settings-list">
-            <button>Profile Settings</button>
-            <button>Security</button>
-            <button>Notifications</button>
-            <button>Billing</button>
-            <button>Integrations</button>
+          <div class="settings-layout">
+            <article class="panel settings-card">
+              <h3>Profile Settings</h3>
+              <label>Workspace name<input value="TaskFlow Studio"></label>
+              <label>Owner email<input value="anushika@taskflow.com"></label>
+              <button class="primary-btn compact" id="saveSettings">Save changes</button>
+            </article>
+            <article class="panel settings-card">
+              <h3>Preferences</h3>
+              <label class="switch-row">Security alerts<input type="checkbox" checked></label>
+              <label class="switch-row">Weekly report email<input type="checkbox" checked></label>
+              <label class="switch-row">Billing reminders<input type="checkbox"></label>
+              <label class="switch-row">Slack integration<input type="checkbox" checked></label>
+            </article>
           </div>
         </section>
       </div>
     </section>
   </main>
+
+  <dialog class="modal" id="projectModal">
+    <form method="dialog">
+      <div class="panel-header"><h3>Create Project</h3><button class="icon-btn" value="cancel" aria-label="Close">X</button></div>
+      <label>Project name<input id="modalProjectName" placeholder="Customer Portal"></label>
+      <label>Owner<input id="modalProjectOwner" placeholder="Emma Watson"></label>
+      <button class="primary-btn" id="createProject" value="default">Create Project</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
 </html>
